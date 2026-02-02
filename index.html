@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Miss Whitney · Restaurante</title>
+  <meta name="description" content="Miss Whitney · Cocina de autor con raíces. Reservas, carta y experiencias." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --burdeos: #a52337;
+      --burdeos-osc: #7b1c2b;
+      --marron: #6a4633;
+      --marron-claro: #b08973;
+      --nieve: #ffffff;
+      --nieve-tinta: #fcfbfb;
+      --perla: #f7f5f5;
+      --negro: #1b1b1b;
+      --gris: #6f6664;
+      --radius: 22px;
+      --shadow: 0 10px 28px rgba(30, 20, 15, .10);
+      --ring: 0 0 0 3px rgba(165, 35, 55, .18);
+      --halo: 0 0 36px rgba(255, 255, 255, .75);
+      --cursor-pointer: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>\
+<path d='M3.2 2.4 L18.8 11.2 L13.6 12.2 L16.4 19.6 L13.9 20.7 L11.1 13.3 L7.7 16.1 Z' fill='%23ffffff' stroke='%23a52337' stroke-width='1.4' stroke-linejoin='round'/>\
+</svg>") 2 2, pointer;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      color: var(--negro);
+      background: var(--nieve);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height: 1.6;
+      accent-color: var(--burdeos);
+      scroll-behavior: smooth;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='4' fill='%23a52337' /></svg>") 9 9, auto;
+      overflow: hidden;
+    }
+
+    h1,
+    h2 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--burdeos-osc)
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
+
+    /* ===== Fondo celestial ===== */
+    @keyframes auroraMove {
+      0% {
+        background-position: 0% 0%, 100% 60%, 50% 100%
+      }
+
+      50% {
+        background-position: 30% 10%, 70% 50%, 40% 90%
+      }
+
+      100% {
+        background-position: 0% 0%, 100% 60%, 50% 100%
+      }
+    }
+
+    @keyframes grainMove {
+      0% {
+        transform: translate(0, 0)
+      }
+
+      100% {
+        transform: translate(-1%, 1%)
+      }
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -12%;
+      z-index: -3;
+      background:
+        radial-gradient(70% 60% at 14% 12%, rgba(255, 255, 255, .96), transparent 60%),
+        radial-gradient(60% 60% at 86% 76%, rgba(255, 255, 255, .95), transparent 65%),
+        radial-gradient(45% 45% at 50% 100%, rgba(255, 255, 255, .92), transparent 70%),
+        linear-gradient(180deg, var(--nieve), var(--nieve-tinta));
+      filter: blur(44px);
+      animation: auroraMove 28s ease-in-out infinite;
+      background-repeat: no-repeat;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.015"/></svg>');
+      animation: grainMove 12s linear infinite alternate;
+    }
+
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, .28) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, .22) 0 2px, transparent 3px),
+        radial-gradient(circle at 60% 20%, rgba(255, 255, 255, .18) 0 2px, transparent 3px);
+      background-size: 220px 220px, 260px 260px, 240px 240px;
+      mix-blend-mode: screen;
+      filter: blur(.2px);
+      animation: spark 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes spark {
+      from {
+        transform: translateY(0)
+      }
+
+      to {
+        transform: translateY(-6px)
+      }
+    }
+
+    /* ===== Loader ===== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, var(--nieve), var(--perla));
+      z-index: 999;
+      transition: opacity .6s ease, visibility .6s ease
+    }
+
+    #loader.fade {
+      opacity: 0;
+      visibility: hidden
+    }
+
+    #loader .logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .08));
+      animation: float 2.2s ease-in-out infinite
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-6px)
+      }
+    }
+
+    /* ===== Cabecera DESKTOP ===== */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      padding: .6rem .8rem;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(12px) saturate(120%);
+      border-bottom: 1px solid rgba(165, 35, 55, .10);
+      box-shadow: var(--shadow);
+    }
+
+    .navgrid {
+      display: grid;
+      align-items: center;
+      gap: .6rem;
+      grid-template-columns: 1fr auto 1fr auto;
+      /* left | logo | right | corner */
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .left,
+    .right {
+      display: flex;
+      gap: .6rem;
+      align-items: center
+    }
+
+    .left {
+      justify-content: flex-start
+    }
+
+    .right {
+      justify-content: flex-end
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .8);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--halo), var(--shadow);
+    }
+
+    .logo img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain
+    }
+
+    .navlink {
+      padding: .5rem .8rem;
+      border-radius: 999px;
+      font-weight: 700;
+      color: var(--marron);
+      background: rgba(255, 255, 255, .7);
+      border: 1px solid rgba(0, 0, 0, .06);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .navlink:hover {
+      box-shadow: var(--ring), var(--halo);
+      transform: translateY(-1px);
+      cursor: var(--cursor-pointer)
+    }
+
+    .navlink--carta {
+      background: linear-gradient(135deg, color-mix(in oklab, var(--burdeos) 70%, white 30%), color-mix(in oklab, var(--marron) 70%, white 30%));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: var(--shadow);
+    }
+
+    .factura {
+      justify-self: end;
+      padding: .55rem 1rem;
+      border-radius: 999px;
+      font-weight: 800;
+      background: #fff;
+      color: var(--burdeos);
+      border: 2px solid var(--burdeos);
+      box-shadow: 0 6px 20px rgba(165, 35, 55, .15), var(--halo);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .factura:hover {
+      background: var(--burdeos);
+      color: #fff;
+      box-shadow: 0 10px 26px rgba(165, 35, 55, .25), var(--halo);
+      transform: translateY(-1px);
+      cursor: var(--cursor-pointer)
+    }
+
+    /* ===== Mobile: Aurora header + DOCK con Home central ===== */
+    .topmini,
+    .dock-wrap {
+      display: none
+    }
+
+    @media (max-width:900px) {
+      .topbar {
+        display: none
+      }
+
+      /* Header mini con logo */
+      .topmini {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, .92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(165, 35, 55, .10);
+      }
+
+      .topmini .logo {
+        width: 54px;
+        height: 54px;
+        box-shadow: none;
+        background: rgba(255, 255, 255, .85)
+      }
+
+      .topmini .logo img {
+        width: 42px;
+        height: 42px
+      }
+
+      .pill-factura {
+        position: fixed;
+        right: 12px;
+        top: 10px;
+        z-index: 70;
+        padding: .5rem .8rem;
+        border-radius: 999px;
+        font-weight: 800;
+        background: #fff;
+        color: var(--burdeos);
+        border: 1.5px solid var(--burdeos);
+        box-shadow: 0 6px 16px rgba(165, 35, 55, .15);
+      }
+
+      /* Dock */
+      .dock-wrap {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 60;
+        padding: 12px 10px
+      }
+
+      .dock {
+        position: relative;
+        margin-inline: auto;
+        max-width: 480px;
+        background: rgba(255, 255, 255, .78);
+        backdrop-filter: blur(14px) saturate(140%);
+        border: 1px solid rgba(165, 35, 55, .14);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, .08), inset 0 0 0 1px rgba(255, 255, 255, .6), var(--halo);
+        border-radius: 22px;
+        padding: 10px 14px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 74px 1fr 1fr;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .dock a {
+        height: 58px;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-size: 11.5px;
+        font-weight: 800;
+        color: var(--marron);
+        transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+      }
+
+      .dock a .ico {
+        width: 22px;
+        height: 22px
+      }
+
+      .dock a:active {
+        transform: scale(.98)
+      }
+
+      .dock a:hover {
+        box-shadow: var(--ring)
+      }
+
+      /* Isla central Home */
+      .home-island {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -26%);
+        width: 74px;
+        height: 74px;
+        border-radius: 20px;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(120% 140% at 50% -10%, rgba(255, 255, 255, .35), transparent 40%),
+          linear-gradient(135deg, var(--burdeos), var(--marron));
+        color: #fff;
+        box-shadow: 0 16px 28px rgba(165, 35, 55, .28), inset 0 0 0 1px rgba(255, 255, 255, .35);
+      }
+
+      .home-island:active {
+        transform: translate(-50%, -24%) scale(.98)
+      }
+
+      .home-island .ico {
+        width: 28px;
+        height: 28px
+      }
+
+      /* Reservar micro-CTA opcional (si quieres activarlo) */
+      .cta-reserva {
+        position: fixed;
+        right: 12px;
+        bottom: 96px;
+        z-index: 60;
+        padding: .6rem .9rem;
+        border-radius: 999px;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--burdeos), var(--marron));
+        color: #fff;
+        border: none;
+        box-shadow: 0 14px 24px rgba(165, 35, 55, .25);
+      }
+    }
+
+    /* Escena hero */
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding-top: 84px;
+    }
+
+    @media (max-width:900px) {
+      .scene {
+        padding-top: 68px;
+        padding-bottom: 110px
+      }
+    }
+
+    /* hueco dock */
+    .scene .inner {
+      max-width: 980px;
+      padding: clamp(1rem, 3vw, 2rem);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .62);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--halo), var(--shadow)
+    }
+
+    @media (max-width:900px) {
+      .scene .inner {
+        padding: 1rem;
+        background: rgba(255, 255, 255, .86)
+      }
+    }
+
+    .scene .logoHero {
+      width: 96px;
+      height: 96px;
+      margin-inline: auto;
+      margin-bottom: 1rem
+    }
+
+    @media (max-width:900px) {
+      .scene .logoHero {
+        width: 72px;
+        height: 72px;
+        margin-bottom: .6rem
+      }
+    }
+
+    .scene h1 {
+      font-size: clamp(2.1rem, 5vw, 3.8rem);
+      margin: .2rem 0 .5rem;
+      color: var(--burdeos)
+    }
+
+    @media (max-width:900px) {
+      .scene h1 {
+        font-size: 1.9rem
+      }
+    }
+
+    .scene p {
+      color: var(--marron);
+      font-size: clamp(1rem, 1.25vw, 1.15rem)
+    }
+
+    @media (max-width:900px) {
+      .scene p {
+        font-size: .98rem
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: .8rem;
+      justify-content: center;
+      margin-top: 1.05rem
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .8rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, .06);
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(10px);
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease
+    }
+
+    .btn:hover {
+      box-shadow: var(--ring), var(--halo);
+      transform: translateY(-2px);
+      cursor: var(--cursor-pointer)
+    }
+
+    .btn.alt {
+      background: linear-gradient(135deg, var(--burdeos), var(--marron));
+      color: #fff;
+      border-color: transparent
+    }
+
+    /* Cursor seguidor (solo desktop) */
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 80;
+      opacity: .7;
+      mix-blend-mode: multiply;
+      transform: translate(-50%, -50%);
+      background: color-mix(in oklab, var(--burdeos) 75%, white 25%);
+      box-shadow: 0 0 0 2px color-mix(in oklab, var(--burdeos) 30%, transparent);
+      transition: width .15s ease, height .15s ease, opacity .2s ease
+    }
+
+    @media (pointer:coarse) {
+      .cursor-dot {
+        display: none
+      }
+
+      body {
+        cursor: auto
+      }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: .6rem;
+      color: var(--marron);
+      background: rgba(255, 255, 255, .7);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(165, 35, 55, .12)
+    }
+
+    @media (max-width:900px) {
+      footer {
+        display: none
+      }
+    }
+
+    /* dock ya ocupa el bottom */
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sparkles" aria-hidden="true"></div>
+
+  <!-- Loader -->
+  <div id="loader" aria-live="polite" aria-busy="true">
+    <img class="logo" src="imagenes/logo.png" alt="Cargando Miss Whitney" />
+  </div>
+  <!-- Cursor follower (desktop) -->
+  <div class="cursor-dot" id="cursor"></div>
+
+  <!-- ===== CABECERA (DESKTOP) ===== -->
+  <div class="topbar" role="navigation" aria-label="Principal">
+    <div class="navgrid">
+      <div class="left">
+        <a class="navlink navlink--carta" href="carta.html">Carta</a>
+        <a class="navlink" href="galeria.html">Galería</a>
+      </div>
+      <a class="logo" href="index.html" aria-label="Inicio">
+        <img src="imagenes/logo.png" alt="Miss Whitney" />
+      </a>
+      <div class="right">
+        <a class="navlink" href="dondeestamos.html">Dónde estamos</a>
+        <a class="navlink" href="contacto.html">Contacto</a>
+      </div>
+      <a class="factura" href="solicitarfactura.php">Solicitar factura</a>
+    </div>
+  </div>
+
+  <!-- ===== HEADER (MÓVIL) ===== -->
+  <div class="topmini" aria-hidden="false">
+    <a class="logo" href="index.html" aria-label="Inicio">
+      <img src="imagenes/logo.png" alt="Miss Whitney" />
+    </a>
+  </div>
+  <a class="pill-factura" href="solicitarfactura.php">Factura</a>
+
+  <!-- ===== DOCK INFERIOR (MÓVIL) con HOME central ===== -->
+  <div class="dock-wrap">
+    <nav class="dock" aria-label="Navegación rápida">
+      <!-- Lado izquierdo -->
+      <a href="carta.html" aria-label="Carta">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M4 3h12a3 3 0 0 1 3 3v15l-6-3-6 3V6a3 3 0 0 1 3-3z" />
+        </svg>
+        Carta
+      </a>
+      <a href="galeria.html" aria-label="Galería">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+          stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        Galería
+      </a>
+
+      <!-- Isla Home central -->
+      <a class="home-island" href="index.html" aria-label="Inicio">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M3 10.5L12 3l9 7.5" />
+          <path d="M5 9.5V21h14V9.5" />
+          <path d="M9.5 21V14.5h5V21" />
+        </svg>
+      </a>
+
+      <!-- Lado derecho -->
+      <a href="dondeestamos.html" aria-label="Mapa">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        Mapa
+      </a>
+      <a href="contacto.html" aria-label="Contacto">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M21 10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10" />
+          <path d="M7 10V7a5 5 0 0 1 10 0v3" />
+          <rect x="3" y="10" width="18" height="8" rx="2" />
+        </svg>
+        Contacto
+      </a>
+    </nav>
+  </div>
+
+  <!-- (Opcional) Micro-CTA reservar en móvil -->
+  <!-- <a class="cta-reserva" href="reserva.html">Reservar</a> -->
+
+  <!-- ===== Escena ===== -->
+  <section class="scene" id="home">
+    <div class="inner">
+      <img class="logoHero" src="imagenes/logo.png" alt="Miss Whitney" />
+      <h1>Elegancia celestial,<br>sabores inolvidables</h1>
+      <p>Una experiencia íntima bañada en blanco nieve y acentos burdeos. Cocina de autor con raíces, sala acogedora y
+        maridajes cuidados.</p>
+      <div class="actions">
+        <a class="btn alt" href="reserva.html">Reservar ahora</a>
+        <a class="btn" href="carta.html">Ver carta</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Miss Whitney</footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Loader
+    window.addEventListener('load', () => {
+      const l = document.getElementById('loader');
+      if (l) { l.classList.add('fade'); setTimeout(() => l.remove(), 100); }
+    });
+
+    // Cursor follower (solo puntero fino y sin reduce motion)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && matchMedia('(pointer:fine)').matches) {
+      const dot = document.createElement('div');
+      dot.className = 'cursor-dot';
+      document.body.appendChild(dot);
+      let x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y;
+      document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+      (function raf() { x += (tx - x) * 0.18; y += (ty - y) * 0.18; dot.style.left = x + 'px'; dot.style.top = y + 'px'; requestAnimationFrame(raf); })();
+      document.addEventListener('mousedown', () => { dot.style.width = '18px'; dot.style.height = '18px'; dot.style.opacity = '.55'; });
+      document.addEventListener('mouseup', () => { dot.style.width = '10px'; dot.style.height = '10px'; dot.style.opacity = '.75'; });
+    }
+  </script>
+</body>
+
+</html>

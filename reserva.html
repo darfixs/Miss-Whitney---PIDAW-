@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reservas · Miss Whitney</title>
+    <meta name="description" content="Reserva tu mesa en Miss Whitney." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ====== MISMO BLOQUE DE VARIABLES, FONDO Y NAV QUE EN 'carta.html' ====== */
+        :root {
+            --burdeos: #a52337;
+            --burdeos-osc: #7b1c2b;
+            --marron: #6a4633;
+            --marron-claro: #b08973;
+            --nieve: #ffffff;
+            --nieve-tinta: #fcfbfb;
+            --perla: #f7f5f5;
+            --negro: #1b1b1b;
+            --gris: #726866;
+            --radius: 18px;
+            --shadow: 0 8px 24px rgba(30, 20, 15, .08);
+            --ring: 0 0 0 3px rgba(165, 35, 55, .18);
+            --halo: 0 0 36px rgba(255, 255, 255, .7);
+            --cursor-pointer: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M3.2 2.4 L18.8 11.2 L13.6 12.2 L16.4 19.6 L13.9 20.7 L11.1 13.3 L7.7 16.1 Z' fill='%23ffffff' stroke='%23a52337' stroke-width='1.4' stroke-linejoin='round'/></svg>") 2 2, pointer
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            color: var(--negro);
+            background: var(--nieve);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            line-height: 1.6;
+            accent-color: var(--burdeos);
+            scroll-behavior: smooth;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='4' fill='%23a52337' /></svg>") 9 9, auto
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Cormorant Garamond", serif;
+            color: var(--burdeos-osc)
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        @keyframes bgShift {
+            0% {
+                background-position: 0% 0%, 100% 60%, 50% 100%
+            }
+
+            50% {
+                background-position: 30% 10%, 70% 50%, 40% 90%
+            }
+
+            100% {
+                background-position: 0% 0%, 100% 60%, 50% 100%
+            }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -10%;
+            z-index: -2;
+            filter: blur(36px);
+            background: radial-gradient(60% 60% at 18% 16%, rgba(255, 255, 255, .96), transparent 60%), radial-gradient(55% 55% at 85% 78%, rgba(255, 255, 255, .92), transparent 65%), linear-gradient(180deg, var(--nieve), var(--nieve-tinta));
+            animation: bgShift 26s ease-in-out infinite;
+            background-repeat: no-repeat
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: .6rem .8rem;
+            background: rgba(255, 255, 255, .85);
+            backdrop-filter: blur(12px) saturate(120%);
+            border-bottom: 1px solid rgba(165, 35, 55, .10);
+            box-shadow: var(--shadow)
+        }
+
+        .navgrid {
+            display: grid;
+            align-items: center;
+            gap: .6rem;
+            grid-template-columns: 1fr auto 1fr auto;
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .left,
+        .right {
+            display: flex;
+            gap: .6rem;
+            align-items: center
+        }
+
+        .left {
+            justify-content: flex-start
+        }
+
+        .right {
+            justify-content: flex-end
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .8);
+            backdrop-filter: blur(8px);
+            box-shadow: var(--halo), var(--shadow)
+        }
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain
+        }
+
+        .navlink {
+            padding: .5rem .8rem;
+            border-radius: 999px;
+            font-weight: 700;
+            color: var(--marron);
+            background: rgba(255, 255, 255, .7);
+            border: 1px solid rgba(0, 0, 0, .06);
+            transition: transform .2s ease, box-shadow .2s ease
+        }
+
+        .navlink:hover {
+            box-shadow: var(--ring), var(--halo);
+            transform: translateY(-1px);
+            cursor: var(--cursor-pointer)
+        }
+
+        .navlink--carta {
+            background: linear-gradient(135deg, color-mix(in oklab, var(--burdeos) 70%, white 30%), color-mix(in oklab, var(--marron) 70%, white 30%));
+            color: #fff;
+            border-color: transparent
+        }
+
+        .factura {
+            justify-self: end;
+            padding: .55rem 1rem;
+            border-radius: 999px;
+            font-weight: 800;
+            background: #fff;
+            color: var(--burdeos);
+            border: 2px solid var(--burdeos);
+            box-shadow: 0 6px 20px rgba(165, 35, 55, .15), var(--halo);
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease
+        }
+
+        .factura:hover {
+            background: var(--burdeos);
+            color: #fff;
+            box-shadow: 0 10px 26px rgba(165, 35, 55, .25), var(--halo);
+            transform: translateY(-1px);
+            cursor: var(--cursor-pointer)
+        }
+
+        .burger {
+            display: none
+        }
+
+        @media (max-width:900px) {
+            .navgrid {
+                grid-template-columns: auto 1fr auto
+            }
+
+            .left,
+            .right {
+                display: none
+            }
+
+            .burger {
+                display: inline-grid;
+                place-items: center;
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+                border: 1px solid rgba(0, 0, 0, .08);
+                background: #fff;
+                justify-self: start
+            }
+
+            .factura {
+                justify-self: end
+            }
+        }
+
+        .drawer {
+            position: fixed;
+            inset: 64px 0 auto 0;
+            top: 0;
+            transform: translateY(-120%);
+            background: rgba(255, 255, 255, .96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(165, 35, 55, .12);
+            transition: .28s ease;
+            z-index: 45
+        }
+
+        .drawer.open {
+            transform: translateY(0)
+        }
+
+        .drawer .links {
+            display: grid;
+            gap: .6rem;
+            padding: 1rem
+        }
+
+        .drawer a {
+            padding: .9rem 1rem;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid rgba(165, 35, 55, .12);
+            font-weight: 700
+        }
+
+        .drawer a:hover {
+            cursor: var(--cursor-pointer)
+        }
+
+        .container {
+            width: min(900px, 92vw);
+            margin-inline: auto
+        }
+
+        header {
+            padding: 2.2rem 0 1rem
+        }
+
+        .kicker {
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--marron-claro);
+            font-weight: 700;
+            font-size: .8rem
+        }
+
+        .title {
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            margin: .4rem 0 0
+        }
+
+        .card {
+            background: rgba(255, 255, 255, .98);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(165, 35, 55, .08);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            box-shadow: var(--halo), var(--shadow)
+        }
+
+        label {
+            display: block;
+            font-size: .9rem;
+            color: var(--marron);
+            font-weight: 600;
+            margin-bottom: .25rem
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: .75rem .8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, .08);
+            background: #fff
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: var(--ring);
+            border-color: var(--burdeos)
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .8rem
+        }
+
+        @media(max-width:600px) {
+            .form-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .cta {
+            margin-top: .6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .8rem 1rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--burdeos), var(--marron));
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            box-shadow: var(--shadow)
+        }
+
+        .cta:hover {
+            cursor: var(--cursor-pointer)
+        }
+
+        footer {
+            margin: 2rem 0;
+            padding: 1.2rem 0;
+            text-align: center;
+            color: var(--marron);
+            background: rgba(255, 255, 255, .7);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(165, 35, 55, .12)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="navgrid">
+            <button class="burger" id="burger" aria-label="Abrir menú">☰</button>
+            <div class="left">
+                <a class="navlink navlink--carta" href="carta.html">Carta</a>
+                <a class="navlink" href="galeria.html">Galería</a>
+            </div>
+            <a class="logo" href="index.html" aria-label="Inicio"><img src="imagenes/logo.png" alt="Miss Whitney" /></a>
+            <div class="right">
+                <a class="navlink" href="dondeestamos.html">Dónde estamos</a>
+                <a class="navlink" href="contacto.html">Contacto</a>
+            </div>
+            <a class="factura" href="solicitarfactura.html">Solicitar factura</a>
+        </div>
+        <div class="drawer" id="drawer" aria-hidden="true">
+            <div class="links container">
+                <a href="carta.html">Carta</a>
+                <a href="galeria.html">Galería</a>
+                <a href="dondeestamos.html">Dónde estamos</a>
+                <a href="contacto.html">Contacto</a>
+                <a href="solicitarfactura.html">Solicitar factura</a>
+                <a href="reserva.html" aria-current="page">Reservar mesa</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="container">
+        <span class="kicker">Reservas</span>
+        <h1 class="title">Asegura tu mesa</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <form id="form-reserva" aria-label="Formulario de reservas">
+                <div class="form-grid">
+                    <p><label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="name" required>
+                    </p>
+                    <p><label for="telefono">Teléfono</label><input id="telefono" name="telefono" type="tel"
+                            autocomplete="tel" required></p>
+                    <p><label for="personas">Personas</label>
+                        <select id="personas" name="personas" required>
+                            <option value="" disabled selected>Selecciona…</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </p>
+                    <p><label for="fecha">Fecha</label><input id="fecha" name="fecha" type="date" required></p>
+                    <p style="grid-column:1/-1"><label for="comentarios">Comentarios</label><textarea id="comentarios"
+                            name="comentarios" rows="3" placeholder="Alergias, horarios…"></textarea></p>
+                </div>
+                <button class="cta" type="submit">Solicitar reserva</button>
+                <small id="msg" style="display:block;margin-top:.6rem;color:var(--marron)"></small>
+            </form>
+        </section>
+    </main>
+
+    <footer>© <span id="year"></span> Miss Whitney</footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+        burger?.addEventListener('click', () => { const open = drawer.classList.toggle('open'); drawer.setAttribute('aria-hidden', String(!open)); burger.textContent = open ? '✕' : '☰'; });
+        const form = document.getElementById('form-reserva'), msg = document.getElementById('msg');
+        form.addEventListener('submit', (e) => { e.preventDefault(); const d = Object.fromEntries(new FormData(form).entries()); msg.textContent = `Gracias, ${d.nombre}. Te llamaremos al ${d.telefono} para confirmar tu mesa para ${d.personas} el ${d.fecha}.`; form.reset(); });
+    </script>
+</body>
+
+</html>
