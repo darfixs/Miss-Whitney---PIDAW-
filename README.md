@@ -26,7 +26,6 @@
 10. [Métodos importantes](#10-métodos-importantes)
 11. [Dependencias](#11-dependencias)
 12. [Configuración y despliegue](#12-configuración-y-despliegue)
-13. [Mejoras futuras](#13-mejoras-futuras)
 
 ---
 
