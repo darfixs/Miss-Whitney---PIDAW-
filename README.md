@@ -1746,13 +1746,6 @@ php artisan serve
 # o configurar Apache/Nginx
 ```
 
-### Permisos en producción
-
-```bash
-chmod -R 775 storage bootstrap/cache
-chown -R www-data:www-data storage bootstrap/cache
-```
-
 ### Limpieza de caché tras cambios
 
 ```bash
@@ -1761,20 +1754,4 @@ php artisan route:clear
 php artisan view:clear
 php artisan cache:clear
 ```
-
-Si no hay acceso SSH, el proyecto incluye `public/cc.php` (script auxiliar protegido por token) que ejecuta lo equivalente desde el navegador.
-
 ---
-
-## 13. Mejoras futuras
-
-<!--
-  ESTA SECCIÓN ESTÁ INTENCIONALMENTE VACÍA.
-  El propietario del proyecto la rellenará manualmente con sus propias propuestas
-  de mejora identificadas tras el análisis del sistema.
--->
-
----
-
-> 📚 **Documentación generada el 13 de mayo de 2026 — Proyecto Miss Whitney v actual**
-> Basado en análisis exhaustivo del código fuente provisto. No incluye especulaciones ni elementos no presentes en el código real.
