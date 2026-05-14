@@ -1713,51 +1713,6 @@ Todo lo demás es Laravel base + herramientas dev.
 
 ### `.env` requerido
 
-```env
-# Aplicación
-APP_NAME="Miss Whitney"
-APP_ENV=local                  # En producción: production
-APP_KEY=base64:...             # Generar con: php artisan key:generate
-APP_DEBUG=true                 # En producción: false
-APP_URL=https://...            # URL completa con subdir si aplica
-APP_LOCALE=es                  # Importante para fechas en español (Carbon)
-APP_FALLBACK_LOCALE=es
-
-# Logging
-LOG_CHANNEL=stack
-LOG_LEVEL=debug
-
-# Base de datos
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=tudb
-DB_USERNAME=tuuser
-DB_PASSWORD=tupass
-
-# Sesiones / cache
-SESSION_DRIVER=file
-SESSION_LIFETIME=120
-SESSION_ENCRYPT=false
-CACHE_STORE=file
-QUEUE_CONNECTION=sync          # Si quieres queues async: database / redis
-FILESYSTEM_DISK=local
-
-# Mail (SMTP Gmail)
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=tuemail@gmail.com
-MAIL_PASSWORD=tu_app_password   # NO contraseña normal, App Password de Gmail
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=tuemail@gmail.com
-MAIL_FROM_NAME="Miss Whitney"
-
-# APIs externas
-GOOGLE_VISION_API_KEY=AIzaSy...       # Usa la misma key para Vision Y Places
-GOOGLE_PLACE_ID=ChIJ...               # ID del lugar en Google Places
-```
-
 ### Instalación
 
 ```bash
